@@ -2,7 +2,7 @@
 
 以 Next.js（JavaScript）製作的個人視覺作品集。網站不只收錄樂團攝影，而是以創作類型為第一層：
 
-- Photography：目前包含完整 ROCK 現場攝影典藏。
+- Photography：包含 ROCK 現場、MOTOR 機車與 Portrait 人像攝影典藏。
 - Midjourney：已建立未來作品入口與版型。
 - VJ / Live Visuals：已建立未來作品入口與版型。
 - About：作者介紹。
@@ -22,6 +22,8 @@ npm run dev
 - `/works`
 - `/works/photography`
 - `/works/photography/rock`
+- `/works/photography/motor`
+- `/works/photography/portrait`
 - `/works/midjourney`
 - `/works/vj`
 - `/about`
@@ -57,6 +59,14 @@ ROCK_SOURCE="/path/to/ROCK" npm run generate:rock
 MAX_PER_SERIES=6 npm run generate:rock
 ```
 
+MOTOR 與 Portrait 也使用相同的「只取照片樹最底層」規則：
+
+```bash
+npm run generate:photography
+```
+
+預設來源分別是 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/MOTOR` 與 `/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait`，也可用 `MOTOR_SOURCE`、`PORTRAIT_SOURCE` 環境變數改寫。
+
 ## GitHub 與照片的分流
 
 網站程式碼、頁面資料與產生器會進 GitHub；`public/rock` 的大量照片被 `.gitignore` 排除，不會塞進 Git 儲存庫。這些照片在本機開發時直接從 `public/rock` 顯示，上線時則由外部公開媒體網址提供。
@@ -79,7 +89,7 @@ BLOB_READ_WRITE_TOKEN="你的 token"
 set -a
 source .env.local
 set +a
-npm run upload:rock
+npm run upload:media
 ```
 
 上傳完成後，腳本會輸出公開網域。把該網域同時設在本機 `.env.local` 與 Vercel 專案環境變數：
@@ -88,7 +98,7 @@ npm run upload:rock
 NEXT_PUBLIC_MEDIA_BASE_URL="https://你的儲存空間.public.blob.vercel-storage.com"
 ```
 
-注意：每張照片的 `put()` 都算一次 Blob Advanced Operation。完整 8,730 張第一次上傳會超過 Hobby 每月內含的 2,000 次；請先確認 Vercel 方案或改接其他相容的公開物件儲存空間，再執行完整上傳。
+注意：每張照片的 `put()` 都算一次 Blob Advanced Operation。ROCK、MOTOR、Portrait 完整 10,237 張第一次上傳會超過 Hobby 每月內含的 2,000 次；請先確認 Vercel 方案或改接其他相容的公開物件儲存空間，再執行完整上傳。
 
 ### 2. 部署網站
 

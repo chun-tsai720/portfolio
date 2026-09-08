@@ -470,9 +470,42 @@ button {
   transition: background 250ms ease, transform 250ms ease;
 }
 
+.collection-stack {
+  display: grid;
+  grid-column: 2;
+  gap: 1rem;
+}
+
+.collection-stack .collection-card {
+  grid-column: auto;
+}
+
+.collection-card.is-paper {
+  background: var(--paper);
+}
+
+.collection-card.is-outline {
+  color: var(--paper);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.collection-card.is-outline dl div {
+  border-color: var(--line);
+}
+
 .collection-card:hover {
   background: var(--paper);
   transform: translateY(-.5rem);
+}
+
+.collection-card.is-paper:hover {
+  background: #fff;
+}
+
+.collection-card.is-outline:hover {
+  color: var(--ink);
+  background: var(--acid);
 }
 
 .collection-card p {
@@ -1221,6 +1254,7 @@ a.contact-row:hover { color: var(--acid); }
   }
 
   .home-intro { gap: 2.5rem; }
+  .collection-stack { grid-column: 1; }
   .stats { margin-top: 2rem; }
   .section-heading { gap: 2rem; }
   .page-title { gap: 2rem; margin-bottom: 5rem; }
@@ -1272,6 +1306,7 @@ a.contact-row:hover { color: var(--acid); }
   .event-pagination { grid-template-columns: 1fr 1fr; }
   .event-pagination a:nth-child(2) { display: none; }
   .collection-card { grid-template-columns: 1fr; }
+  .collection-stack { grid-column: 1; }
   .collection-card dl { width: 100%; margin-bottom: 2rem; }
   .about-profile { grid-template-columns: 1fr; }
   .about-portrait { max-width: 22rem; }

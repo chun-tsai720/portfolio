@@ -2,6 +2,8 @@ node_modules/
 .next/
 .vercel/
 /public/rock/
+/public/motor/
+/public/portrait/
 .env*
 !.env.example
 .DS_Store

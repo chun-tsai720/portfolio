@@ -2,12 +2,16 @@ import Link from "next/link";
 import DisciplineGrid from "@/components/DisciplineGrid";
 import RevealImage from "@/components/RevealImage";
 import { catalogStats, formatCount, getBands } from "@/lib/catalog";
+import { photoCollectionStats } from "@/lib/photoCollections";
 import { mediaUrl, ROCK_ARCHIVE_PATH } from "@/lib/site";
 
 export default function HomePage() {
   const bands = getBands();
   const featured = bands.filter((band) => band.cover).slice(0, 6);
   const hero = featured[0]?.cover;
+  const photographyFrameCount = catalogStats.sourceImageCount
+    + photoCollectionStats.motor.sourceImageCount
+    + photoCollectionStats.portrait.sourceImageCount;
 
   return (
     <main>
@@ -34,7 +38,7 @@ export default function HomePage() {
         <dl className="stats">
           <div><dt>03</dt><dd>DISCIPLINES</dd></div>
           <div><dt>{catalogStats.bandCount}</dt><dd>ROCK BANDS</dd></div>
-          <div><dt>{formatCount(catalogStats.sourceImageCount)}</dt><dd>PHOTO FRAMES</dd></div>
+          <div><dt>{formatCount(photographyFrameCount)}</dt><dd>PHOTO FRAMES</dd></div>
         </dl>
       </section>
 

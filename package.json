@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "generate:rock": "node scripts/generate-rock-portfolio.js",
-    "upload:rock": "node scripts/upload-rock-to-vercel-blob.js"
+    "generate:photography": "node scripts/generate-photo-collections.js",
+    "upload:media": "node scripts/upload-media-to-vercel-blob.js"
   },
   "dependencies": {
     "@vercel/blob": "^2.8.0",

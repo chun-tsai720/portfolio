@@ -4,7 +4,8 @@ import { put } from "@vercel/blob";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const imageRoot = path.join(projectRoot, "public", "rock");
+const publicRoot = path.join(projectRoot, "public");
+const mediaDirectories = ["rock", "motor", "portrait"];
 const concurrency = Number(process.env.UPLOAD_WORKERS || 8);
 
 if (!process.env.BLOB_READ_WRITE_TOKEN) {
@@ -12,13 +13,16 @@ if (!process.env.BLOB_READ_WRITE_TOKEN) {
 }
 
 function listFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const target = path.join(directory, entry.name);
     return entry.isDirectory() ? listFiles(target) : [target];
   });
 }
 
-const files = listFiles(imageRoot).filter((file) => /\.jpe?g$/i.test(file));
+const files = mediaDirectories
+  .flatMap((directory) => listFiles(path.join(publicRoot, directory)))
+  .filter((file) => /\.jpe?g$/i.test(file));
 let cursor = 0;
 let finished = 0;
 let mediaBaseUrl = "";
@@ -27,7 +31,7 @@ async function worker() {
   while (cursor < files.length) {
     const file = files[cursor];
     cursor += 1;
-    const pathname = path.relative(path.join(projectRoot, "public"), file).split(path.sep).join("/");
+    const pathname = path.relative(publicRoot, file).split(path.sep).join("/");
     const blob = await put(pathname, fs.createReadStream(file), {
       access: "public",
       addRandomSuffix: false,
