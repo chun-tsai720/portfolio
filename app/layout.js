@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" data-scroll-behavior="smooth">
       <body>
         <header className="site-header">
           <Link className="wordmark" href="/" aria-label="回到首頁">

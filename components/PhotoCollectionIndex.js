@@ -2,13 +2,18 @@ import Link from "next/link";
 import RevealImage from "@/components/RevealImage";
 import { formatCount } from "@/lib/catalog";
 
-export default function PhotoCollectionIndex({ catalog }) {
-  const basePath = `/works/photography/${catalog.slug}`;
+export default function PhotoCollectionIndex({
+  catalog,
+  basePath = `/works/photography/${catalog.slug}`,
+  eyebrow = `WORKS / PHOTOGRAPHY / ${catalog.name}`,
+  itemLabel = "SERIES",
+  className = "",
+}) {
 
   return (
-    <main className="index-page">
+    <main className={`index-page ${className}`.trim()}>
       <header className="page-title">
-        <p className="eyebrow">WORKS / PHOTOGRAPHY / {catalog.name}</p>
+        <p className="eyebrow">{eyebrow}</p>
         <h1>{catalog.name}</h1>
         <p>{catalog.stats.projectCount} 個主題，{formatCount(catalog.stats.sourceImageCount)} 張最底層作品。</p>
       </header>
@@ -20,7 +25,7 @@ export default function PhotoCollectionIndex({ catalog }) {
               {project.cover && <RevealImage src={project.cover} alt="" />}
             </div>
             <h2>{project.name}</h2>
-            <p>{project.series.length} SERIES</p>
+            <p>{project.series.length} {itemLabel}</p>
             <p>{formatCount(project.sourceImageCount)} FRAMES</p>
             <span className="row-arrow">↗</span>
           </Link>

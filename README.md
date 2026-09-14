@@ -3,7 +3,7 @@
 以 Next.js（JavaScript）製作的個人視覺作品集。網站不只收錄樂團攝影，而是以創作類型為第一層：
 
 - Photography：包含 ROCK 現場、MOTOR 機車與 Portrait 人像攝影典藏。
-- Midjourney：已建立未來作品入口與版型。
+- Midjourney：依整理後的 Prompt 關鍵字資料夾，自動產生系列索引與作品頁。
 - VJ / Live Visuals：已建立未來作品入口與版型。
 - About：作者介紹。
 - Contact：聯絡方式；真實信箱與 Instagram 可在 `lib/site.js` 填入。
@@ -66,6 +66,16 @@ npm run generate:photography
 ```
 
 預設來源分別是 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/MOTOR` 與 `/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait`，也可用 `MOTOR_SOURCE`、`PORTRAIT_SOURCE` 環境變數改寫。
+
+## 從 Midjourney 整理資料夾重新產生網站素材
+
+```bash
+npm run generate:midjourney
+```
+
+產生器會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 1000px、JPEG 品質 65，輸出至 `public/midjourney`。
+
+可用 `MIDJOURNEY_SOURCE` 改寫來源；測試時也能用 `MAX_PER_SERIES=6 npm run generate:midjourney` 限制每組張數。
 
 ## GitHub 與照片的分流
 

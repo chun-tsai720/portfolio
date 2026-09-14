@@ -2,14 +2,19 @@ import Link from "next/link";
 import LightboxGallery from "@/components/LightboxGallery";
 import { formatCount } from "@/lib/catalog";
 
-export default function PhotoProject({ catalog, project }) {
-  const basePath = `/works/photography/${catalog.slug}`;
+export default function PhotoProject({
+  catalog,
+  project,
+  basePath = `/works/photography/${catalog.slug}`,
+  eyebrow = `PHOTOGRAPHY / ${catalog.name}`,
+  className = "",
+}) {
 
   return (
-    <main className="event-page">
+    <main className={`event-page ${className}`.trim()}>
       <header className="event-heading">
         <Link className="back-link" href={basePath}>← {catalog.name}</Link>
-        <p className="eyebrow">PHOTOGRAPHY / {catalog.name}</p>
+        <p className="eyebrow">{eyebrow}</p>
         <h1>{project.name}</h1>
         <div className="event-meta">
           <p>{catalog.label}</p>

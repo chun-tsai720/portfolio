@@ -4,6 +4,7 @@ node_modules/
 /public/rock/
 /public/motor/
 /public/portrait/
+/public/midjourney/
 .env*
 !.env.example
 .DS_Store

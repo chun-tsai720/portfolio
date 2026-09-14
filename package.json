@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "generate:rock": "node scripts/generate-rock-portfolio.js",
     "generate:photography": "node scripts/generate-photo-collections.js",
+    "generate:midjourney": "node scripts/generate-midjourney-portfolio.js",
     "upload:media": "node scripts/upload-media-to-vercel-blob.js"
   },
   "dependencies": {

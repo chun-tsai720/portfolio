@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap");
 
 :root {
-  --ink: #080808;
-  --paper: #e9e7e1;
-  --muted: #a7a49d;
-  --line: rgba(233, 231, 225, 0.2);
-  --acid: #d5ff39;
+  --ink: #111111;
+  --paper: #d8b862;
+  --muted: #a68a52;
+  --line: rgba(216, 184, 98, 0.28);
+  --acid: #f0c75e;
   --pad: clamp(1.25rem, 4vw, 4rem);
 }
 
@@ -61,7 +61,75 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 1.4rem var(--pad);
-  mix-blend-mode: difference;
+  mix-blend-mode: normal;
+}
+
+.home-entry {
+  min-height: 100svh;
+  background: var(--ink);
+}
+
+.home-entry-link {
+  position: relative;
+  display: block;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #202020;
+}
+
+.home-entry-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: contrast(1.04);
+  mix-blend-mode: multiply;
+  transform: scale(.94);
+  transition: filter 700ms ease, transform 900ms cubic-bezier(.2,.8,.2,1);
+}
+
+.home-entry-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.62), transparent 48%),
+    linear-gradient(0deg, rgba(0,0,0,.82), transparent 48%);
+}
+
+.home-entry-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 8rem var(--pad) clamp(3rem, 6vw, 6rem);
+}
+
+.home-entry-copy h1 {
+  max-width: 10ch;
+  margin: .15em 0 .3em;
+  color: var(--acid);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.075em;
+}
+
+.home-entry-copy span {
+  padding-top: 1rem;
+  color: var(--paper);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  border-top: 1px solid var(--line);
+}
+
+.home-entry-link:hover .home-entry-image {
+  filter: contrast(1.08);
+  transform: scale(.98);
 }
 
 .wordmark {
@@ -219,8 +287,10 @@ button {
   grid-template-columns: minmax(8rem, .65fr) 2.2fr 1fr;
   padding: clamp(6rem, 12vw, 12rem) var(--pad);
   gap: 3rem;
-  background: var(--paper);
-  color: var(--ink);
+  color: var(--paper);
+  background: var(--ink);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .home-intro h2,
@@ -235,14 +305,14 @@ button {
 .body-copy {
   max-width: 40rem;
   margin: 3rem 0 0 auto;
-  color: #4c4a46;
+  color: var(--muted);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   line-height: 1.9;
 }
 
 .stats {
   margin: 0;
-  border-top: 1px solid rgba(0,0,0,.2);
+  border-top: 1px solid var(--line);
 }
 
 .stats div {
@@ -250,7 +320,7 @@ button {
   align-items: baseline;
   justify-content: space-between;
   padding: 1.2rem 0;
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid var(--line);
 }
 
 .stats dt {
@@ -295,6 +365,13 @@ button {
   background: #181818;
 }
 
+.discipline-visual > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 800ms cubic-bezier(.2,.8,.2,1);
+}
+
 .discipline-visual::after {
   position: absolute;
   inset: 0;
@@ -336,7 +413,7 @@ button {
 .discipline-copy small {
   grid-column: 1 / -1;
   min-height: 3.4em;
-  color: #c2bfb7;
+  color: var(--muted);
   line-height: 1.7;
 }
 
@@ -357,20 +434,20 @@ button {
 
 .discipline-midjourney .future-visual {
   background:
-    radial-gradient(circle at 65% 30%, rgba(213,255,57,.8), transparent 8%),
-    radial-gradient(ellipse at 35% 55%, #7142ff 0%, transparent 38%),
-    conic-gradient(from 130deg at 60% 50%, #0c0c0b, #233329, #000, #49206e, #0c0c0b);
+    radial-gradient(circle at 65% 30%, rgba(240,199,94,.8), transparent 8%),
+    radial-gradient(ellipse at 35% 55%, #6b4c18 0%, transparent 38%),
+    conic-gradient(from 130deg at 60% 50%, #0c0c0b, #33260e, #000, #5a4117, #0c0c0b);
   filter: saturate(.85) contrast(1.1);
 }
 
 .discipline-vj .future-visual {
   background:
-    repeating-linear-gradient(0deg, transparent 0 8px, rgba(213,255,57,.12) 9px 10px),
-    linear-gradient(125deg, transparent 25%, #d5ff39 25% 27%, transparent 27% 53%, #7247ff 53% 57%, transparent 57%),
-    radial-gradient(circle at center, #333 0%, #050505 65%);
+    repeating-linear-gradient(0deg, transparent 0 8px, rgba(240,199,94,.14) 9px 10px),
+    linear-gradient(125deg, transparent 25%, #f0c75e 25% 27%, transparent 27% 53%, #8b6825 53% 57%, transparent 57%),
+    radial-gradient(circle at center, #2a2110 0%, #050505 65%);
 }
 
-.discipline-card:hover .image-reveal img,
+.discipline-card:hover .discipline-visual > img,
 .discipline-card:hover .future-visual {
   transform: scale(1.06);
 }
@@ -465,8 +542,9 @@ button {
   grid-column: 2;
   grid-template-columns: 2fr 1fr;
   padding: clamp(2rem, 5vw, 5rem);
-  color: var(--ink);
-  background: var(--acid);
+  color: var(--paper);
+  background: #0d0c09;
+  border: 1px solid var(--line);
   transition: background 250ms ease, transform 250ms ease;
 }
 
@@ -481,7 +559,7 @@ button {
 }
 
 .collection-card.is-paper {
-  background: var(--paper);
+  background: #11100c;
 }
 
 .collection-card.is-outline {
@@ -495,17 +573,18 @@ button {
 }
 
 .collection-card:hover {
-  background: var(--paper);
+  color: var(--acid);
+  background: #17130a;
   transform: translateY(-.5rem);
 }
 
 .collection-card.is-paper:hover {
-  background: #fff;
+  background: #17130a;
 }
 
 .collection-card.is-outline:hover {
-  color: var(--ink);
-  background: var(--acid);
+  color: var(--acid);
+  background: #17130a;
 }
 
 .collection-card p {
@@ -531,7 +610,7 @@ button {
   align-items: baseline;
   justify-content: space-between;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(0,0,0,.25);
+  border-bottom: 1px solid var(--line);
 }
 
 .collection-card dt { font-size: 2.2rem; letter-spacing: -.06em; }
@@ -555,15 +634,15 @@ button {
 .future-stage i {
   position: absolute;
   inset: 20% 30%;
-  border: 1px solid rgba(255,255,255,.25);
+  border: 1px solid var(--line);
   transform: rotate(35deg);
   animation: drift 12s ease-in-out infinite alternate;
 }
 
 .future-stage i:nth-child(2) { inset: 30% 22%; transform: rotate(-20deg); animation-delay: -4s; }
 .future-stage i:nth-child(3) { inset: 12% 42%; transform: rotate(70deg); animation-delay: -8s; }
-.future-midjourney .future-stage { background: radial-gradient(circle at 58% 45%, #49376b, #12201c 35%, #050505 70%); }
-.future-vj .future-stage { background: repeating-linear-gradient(0deg, rgba(213,255,57,.05) 0 1px, transparent 1px 12px), radial-gradient(circle, #2a2a1c, #050505 65%); }
+.future-midjourney .future-stage { background: radial-gradient(circle at 58% 45%, #5a4318, #1d170b 35%, #050505 70%); }
+.future-vj .future-stage { background: repeating-linear-gradient(0deg, rgba(240,199,94,.08) 0 1px, transparent 1px 12px), radial-gradient(circle, #2a2110, #050505 65%); }
 
 .future-page-copy {
   position: relative;
@@ -590,7 +669,7 @@ button {
 
 .future-page-copy > p {
   max-width: 36rem;
-  color: #c9c6be;
+  color: var(--muted);
   font-size: 1rem;
   line-height: 1.9;
 }
@@ -645,7 +724,7 @@ button {
 .about-copy > p:not(.section-number) {
   max-width: 42rem;
   margin: 0 0 1.8rem auto;
-  color: #b7b4ad;
+  color: var(--muted);
   font-size: clamp(.95rem, 1.3vw, 1.15rem);
   line-height: 2;
 }
@@ -709,7 +788,7 @@ button {
 }
 
 a.contact-row:hover { color: var(--acid); }
-.contact-row.is-placeholder strong { color: #66645f; }
+.contact-row.is-placeholder strong { color: #76623d; }
 .contact-work-link { margin: 7rem 0 0 auto; }
 
 @keyframes drift {
@@ -946,7 +1025,7 @@ a.contact-row:hover { color: var(--acid); }
 
 .band-hero-copy > p:last-child {
   margin: 0;
-  color: #c6c3bc;
+  color: var(--muted);
   font-size: .65rem;
   letter-spacing: .15em;
 }
@@ -957,21 +1036,15 @@ a.contact-row:hover { color: var(--acid); }
 
 .session-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 5rem 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(4rem, 9vw, 9rem);
 }
 
-.session-card {
-  grid-column: span 6;
-}
-
+.session-card,
 .session-card:nth-child(4n + 2),
 .session-card:nth-child(4n + 3) {
-  grid-column: span 5;
-}
-
-.session-card:nth-child(4n + 3) {
-  grid-column-start: 3;
+  grid-column: 1;
+  min-width: 0;
 }
 
 .session-card > .image-reveal {
@@ -1115,6 +1188,29 @@ a.contact-row:hover { color: var(--acid); }
 .photo-button img {
   object-fit: contain;
   background: #101010;
+}
+
+/* 攝影作品一律以原始比例的大圖逐張呈現，不使用交錯窄欄。 */
+.event-page:not(.midjourney-project) .photo-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(3rem, 8vw, 8rem);
+}
+
+.event-page:not(.midjourney-project) .photo-button,
+.event-page:not(.midjourney-project) .photo-button:nth-child(3n + 2),
+.event-page:not(.midjourney-project) .photo-button:nth-child(3n) {
+  grid-column: 1;
+  width: 100%;
+}
+
+.event-page:not(.midjourney-project) .photo-button .image-reveal,
+.event-page:not(.midjourney-project) .photo-button img {
+  height: auto;
+  aspect-ratio: auto;
+}
+
+.midjourney-project .photo-button .image-reveal {
+  aspect-ratio: 3 / 4;
 }
 
 .lightbox-open {
