@@ -5,8 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 8);
-const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "1000";
-const imageQuality = process.env.IMAGE_QUALITY || "65";
+// 網站副本維持大圖觀感，同時為免費部署的容量限制預留空間。
+const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "900";
+const imageQuality = process.env.IMAGE_QUALITY || "45";
 const imagePattern = /\.(?:jpe?g|png|webp|heic|tiff?)$/i;
 const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|上傳)$/i;
 

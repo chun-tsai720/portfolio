@@ -44,7 +44,7 @@ npm run generate:rock
 3. 只讀照片樹最底層的資料夾；只要子資料夾還有照片，父層的照片就略過，避免原檔與完成版重複出現。
 4. 將每個最底層資料夾保留為活動頁裡的獨立系列；「重調」「黑白」「第二調色」不會互相合併。
 5. 沒有活動名稱的最底層資料夾依檔名日期分組。
-6. 每個獨立系列的照片全部收錄，長邊縮至 1000px、JPEG 品質 65，輸出至 `public/rock`；原始檔不會被修改。
+6. 每個獨立系列的照片全部收錄，長邊縮至 900px、JPEG 品質 45，輸出至 `public/rock`；原始檔不會被修改。
 7. 產生 `src/data/rock-catalog.json`，供 Next.js 動態路由使用。
 
 可用環境變數調整來源：
@@ -73,47 +73,12 @@ npm run generate:photography
 npm run generate:midjourney
 ```
 
-產生器只會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 1000px、JPEG 品質 65，輸出至 `public/midjourney`。
+產生器只會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 900px、JPEG 品質 45，輸出至 `public/midjourney`。
 
 可用 `MIDJOURNEY_SOURCE` 改寫來源；測試時也能用 `MAX_PER_SERIES=6 npm run generate:midjourney` 限制每組張數。
 
-## GitHub 與照片的分流
+## GitHub 與 Vercel 部署
 
-網站程式碼、頁面資料與產生器會進 GitHub；`public/rock` 的大量照片被 `.gitignore` 排除，不會塞進 Git 儲存庫。這些照片在本機開發時直接從 `public/rock` 顯示，上線時則由外部公開媒體網址提供。
+四個網站圖片目錄 `public/rock`、`public/motor`、`public/portrait`、`public/midjourney` 會和程式碼一起保存在 GitHub，並透過相對路徑由同一個 Vercel 部署提供。完整網站副本共 12,086 張、約 720 MB；原始照片仍只保留在來源資料夾，不會被產生器修改。
 
-## Vercel 部署準備
-
-專案已包含 `vercel.json`、`.vercelignore`、`.env.example` 與 Vercel Blob 上傳腳本。由於 Vercel CLI 的 Hobby 原始檔上傳限制是 100 MB，`.vercelignore` 會排除 `public/rock`，只部署網站程式。
-
-### 1. 建立照片儲存空間
-
-在 Vercel 專案建立 Public Blob store，取得 `BLOB_READ_WRITE_TOKEN`，並在本機 `.env.local` 設定：
-
-```bash
-BLOB_READ_WRITE_TOKEN="你的 token"
-```
-
-先匯入環境變數，再執行照片上傳：
-
-```bash
-set -a
-source .env.local
-set +a
-npm run upload:media
-```
-
-上傳完成後，腳本會輸出公開網域。把該網域同時設在本機 `.env.local` 與 Vercel 專案環境變數：
-
-```bash
-NEXT_PUBLIC_MEDIA_BASE_URL="https://你的儲存空間.public.blob.vercel-storage.com"
-```
-
-注意：每張照片的 `put()` 都算一次 Blob Advanced Operation。ROCK、MOTOR、Portrait 完整 10,237 張第一次上傳會超過 Hobby 每月內含的 2,000 次；請先確認 Vercel 方案或改接其他相容的公開物件儲存空間，再執行完整上傳。
-
-### 2. 部署網站
-
-完成 GitHub 推送並把儲存庫匯入 Vercel 後，在 Vercel 專案設定 `NEXT_PUBLIC_MEDIA_BASE_URL`。每次推送到 GitHub 的 `main` 分支即可觸發部署；也可以在已登入的 Vercel CLI 執行：
-
-```bash
-vercel --prod
-```
+由於 Vercel Hobby 的 CLI 原始檔上傳限制為 100 MB，這個專案必須透過已連接的 GitHub `main` 分支自動部署，不使用 `vercel --prod` 直接上傳。每次重新產生圖片後，先確認四個目錄總容量仍保有足夠空間，再提交到 GitHub。

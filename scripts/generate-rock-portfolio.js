@@ -11,8 +11,9 @@ const maximumSelected = process.env.MAX_PER_SERIES
   ? Number(process.env.MAX_PER_SERIES)
   : Number.POSITIVE_INFINITY;
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 6);
-const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "1000";
-const imageQuality = process.env.IMAGE_QUALITY || "65";
+// 網站副本維持大圖觀感，同時為免費部署的容量限制預留空間。
+const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "900";
+const imageQuality = process.env.IMAGE_QUALITY || "45";
 const imagePattern = /\.(?:jpe?g|png|webp)$/i;
 const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|上傳)$/i;
 const genericFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|B&W|黑白|第二調色|第二版|上傳|重調|嘗試|試驗版)$/i;
