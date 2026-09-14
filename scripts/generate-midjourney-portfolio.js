@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = process.env.MIDJOURNEY_SOURCE
-  || "/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney";
+  || "/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾";
 const outputRoot = path.join(projectRoot, "public", "midjourney");
 const dataPath = path.join(projectRoot, "src", "data", "midjourney-catalog.json");
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 8);

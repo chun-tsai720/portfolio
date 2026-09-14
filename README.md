@@ -73,7 +73,7 @@ npm run generate:photography
 npm run generate:midjourney
 ```
 
-產生器會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 1000px、JPEG 品質 65，輸出至 `public/midjourney`。
+產生器只會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 1000px、JPEG 品質 65，輸出至 `public/midjourney`。
 
 可用 `MIDJOURNEY_SOURCE` 改寫來源；測試時也能用 `MAX_PER_SERIES=6 npm run generate:midjourney` 限制每組張數。
 
