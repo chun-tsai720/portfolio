@@ -2475,25 +2475,29 @@ a.contact-row:hover { color: var(--acid); }
 
 .project-navigator {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  padding: clamp(6rem, 10vw, 10rem) var(--pad);
+  grid-template-columns: minmax(7rem, .7fr) minmax(0, 3.3fr);
+  padding: clamp(2.75rem, 4vw, 4.5rem) var(--pad);
   color: var(--paper);
-  background:
-    linear-gradient(120deg, rgba(213, 192, 122, .06), transparent 44%),
-    #090908;
+  background: #090908;
   border-top: 1px solid var(--line);
 }
 
 .index-page > .project-navigator,
 .event-page > .project-navigator {
   margin-top: clamp(7rem, 12vw, 12rem);
+  padding-top: clamp(2.75rem, 4vw, 4.5rem);
   padding-right: 0;
   padding-bottom: 0;
   padding-left: 0;
 }
 
 .project-navigator-content {
+  display: grid;
   grid-column: 2;
+  grid-template-columns: minmax(12rem, .8fr) minmax(18rem, 1.2fr);
+  align-items: end;
+  width: min(100%, 66rem);
+  column-gap: clamp(2rem, 5vw, 6rem);
 }
 
 .index-back-link {
@@ -2502,9 +2506,10 @@ a.contact-row:hover { color: var(--acid); }
 }
 
 .project-navigator-current {
-  margin: 0 0 2rem;
+  grid-column: 1;
+  margin: 0 0 .85rem;
   color: var(--muted);
-  font-size: .56rem;
+  font-size: .5rem;
   letter-spacing: .14em;
 }
 
@@ -2513,17 +2518,19 @@ a.contact-row:hover { color: var(--acid); }
 }
 
 .project-navigator h2 {
-  max-width: 14ch;
-  margin: 0 0 clamp(3rem, 6vw, 6rem);
-  font-size: clamp(2.7rem, 6.5vw, 7rem);
+  grid-column: 1;
+  margin: 0;
+  font-size: clamp(1.55rem, 2.6vw, 2.7rem);
   font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -.065em;
+  line-height: 1.08;
+  letter-spacing: -.045em;
 }
 
 .project-select {
   position: relative;
   display: grid;
+  grid-column: 2;
+  grid-row: 1 / span 2;
   grid-template-columns: 1fr auto;
   align-items: center;
   border-top: 1px solid var(--acid);
@@ -2532,7 +2539,7 @@ a.contact-row:hover { color: var(--acid); }
 
 .project-select > span {
   position: absolute;
-  top: 1rem;
+  top: .75rem;
   left: 0;
   z-index: 1;
   color: var(--muted);
@@ -2544,10 +2551,10 @@ a.contact-row:hover { color: var(--acid); }
 .project-select select {
   grid-column: 1 / -1;
   width: 100%;
-  padding: 2.6rem 4rem 1.2rem 0;
+  padding: 2.15rem 3rem .85rem 0;
   color: var(--paper);
   font: inherit;
-  font-size: clamp(1.15rem, 2.2vw, 2rem);
+  font-size: clamp(.95rem, 1.35vw, 1.25rem);
   letter-spacing: -.02em;
   appearance: none;
   cursor: pointer;
@@ -2565,17 +2572,19 @@ a.contact-row:hover { color: var(--acid); }
   position: absolute;
   right: .25rem;
   color: var(--acid);
-  font-size: 1.7rem;
+  font-size: 1.25rem;
   font-weight: 400;
   pointer-events: none;
 }
 
 .project-navigator-back {
   display: inline-flex;
-  margin-top: 2rem;
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 1.25rem;
   padding-bottom: .45rem;
   color: var(--muted);
-  font-size: .58rem;
+  font-size: .52rem;
   letter-spacing: .14em;
   border-bottom: 1px solid var(--line);
   transition: color 180ms ease, border-color 180ms ease;
@@ -2854,6 +2863,24 @@ a.contact-row:hover { color: var(--acid); }
   .case-tech > ul,
   .project-navigator-content {
     grid-column: 1;
+  }
+
+  .project-navigator > .section-number {
+    margin-bottom: 2rem;
+  }
+
+  .project-navigator-content {
+    grid-template-columns: 1fr;
+  }
+
+  .project-select,
+  .project-navigator-back {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .project-select {
+    margin-top: 2rem;
   }
 
   .project-grid,
