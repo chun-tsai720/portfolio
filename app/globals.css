@@ -51,6 +51,67 @@ button {
   font: inherit;
 }
 
+.cursor-effect {
+  --cursor-tone: var(--acid);
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.cursor-effect[data-visible="true"] {
+  opacity: 1;
+}
+
+.cursor-ring,
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor-ring {
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid var(--cursor-tone);
+  box-shadow: 0 0 1.1rem color-mix(in srgb, var(--cursor-tone) 32%, transparent);
+  transition: width 220ms ease, height 220ms ease, background 220ms ease;
+}
+
+.cursor-trail {
+  width: .34rem;
+  height: .34rem;
+  background: var(--cursor-tone);
+  opacity: calc(.42 - var(--trail-index) * .048);
+}
+
+.cursor-effect[data-active="true"] .cursor-ring {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: color-mix(in srgb, var(--cursor-tone) 12%, transparent);
+}
+
+.cursor-effect[data-pressed="true"] .cursor-ring {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+body:has(.home-entry) .cursor-effect {
+  --cursor-tone: var(--ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-enhanced,
+  html.cursor-enhanced * {
+    cursor: none !important;
+  }
+}
+
 .site-header {
   position: absolute;
   top: 0;
@@ -66,7 +127,8 @@ button {
 
 .home-entry {
   min-height: 100svh;
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--paper);
 }
 
 .home-entry-link {
@@ -74,7 +136,7 @@ button {
   display: block;
   min-height: 100svh;
   overflow: hidden;
-  background: #202020;
+  background: var(--paper);
 }
 
 .home-entry-image {
@@ -93,8 +155,8 @@ button {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.62), transparent 48%),
-    linear-gradient(0deg, rgba(0,0,0,.82), transparent 48%);
+    linear-gradient(90deg, rgba(216,184,98,.82), transparent 48%),
+    linear-gradient(0deg, rgba(216,184,98,.92), transparent 48%);
 }
 
 .home-entry-copy {
@@ -111,7 +173,7 @@ button {
 .home-entry-copy h1 {
   max-width: 10ch;
   margin: .15em 0 .3em;
-  color: var(--acid);
+  color: var(--ink);
   font-size: clamp(4rem, 12vw, 11rem);
   font-weight: 900;
   line-height: .78;
@@ -120,11 +182,15 @@ button {
 
 .home-entry-copy span {
   padding-top: 1rem;
-  color: var(--paper);
+  color: var(--ink);
   font-size: .68rem;
   font-weight: 600;
   letter-spacing: .18em;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(17, 17, 17, .28);
+}
+
+body:has(.home-entry) .site-header {
+  color: var(--ink);
 }
 
 .home-entry-link:hover .home-entry-image {

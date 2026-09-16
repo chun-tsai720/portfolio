@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CursorEffect from "../components/CursorEffect";
 import "./globals.css";
 
 export const metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="zh-Hant" data-scroll-behavior="smooth">
       <body>
+        <CursorEffect />
         <header className="site-header">
           <Link className="wordmark" href="/" aria-label="回到首頁">
             CHUN<span>/</span>PORTFOLIO
