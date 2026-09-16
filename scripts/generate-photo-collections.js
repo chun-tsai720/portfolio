@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { optimizeWebImage } from "./optimize-web-image.js";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 8);
-// 網站副本維持大圖觀感，同時為免費部署的容量限制預留空間。
-const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "900";
-const imageQuality = process.env.IMAGE_QUALITY || "45";
+// 列表與燈箱共用清晰的 WebP 網站副本；原始照片保持不變。
+const imageMaxEdge = Number(process.env.IMAGE_MAX_EDGE || 1200);
+const imageQuality = Number(process.env.IMAGE_QUALITY || 70);
 const imagePattern = /\.(?:jpe?g|png|webp|heic|tiff?)$/i;
 const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|上傳)$/i;
 
@@ -67,19 +67,7 @@ function findImageLeaves(directory, relativeParts = []) {
 }
 
 function optimizeImage(source, destination) {
-  return new Promise((resolve, reject) => {
-    const child = spawn("sips", [
-      "-s", "format", "jpeg",
-      "-Z", imageMaxEdge,
-      "--setProperty", "formatOptions", imageQuality,
-      source,
-      "--out", destination,
-    ], { stdio: "ignore" });
-    child.once("error", reject);
-    child.once("exit", (code) => code === 0
-      ? resolve()
-      : reject(new Error(`sips failed for ${source} with exit code ${code}`)));
-  });
+  return optimizeWebImage(source, destination, imageMaxEdge, imageQuality);
 }
 
 async function runTasks(tasks) {
@@ -127,7 +115,7 @@ async function generateCollection(config) {
         const seriesDirectory = path.join(outputRoot, slug, seriesSlug);
         fs.mkdirSync(seriesDirectory, { recursive: true });
         const images = item.files.map((source, imageIndex) => {
-          const filename = `${String(imageIndex + 1).padStart(3, "0")}.jpg`;
+          const filename = `${String(imageIndex + 1).padStart(3, "0")}.webp`;
           const src = `/${config.slug}/${slug}/${seriesSlug}/${filename}`;
           tasks.push({ source, destination: path.join(seriesDirectory, filename) });
           imageCount += 1;

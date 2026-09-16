@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { optimizeWebImage } from "./optimize-web-image.js";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = process.env.ROCK_SOURCE || "/Users/KobeKEKE/Pictures/Pic/ROCK";
@@ -11,9 +11,9 @@ const maximumSelected = process.env.MAX_PER_SERIES
   ? Number(process.env.MAX_PER_SERIES)
   : Number.POSITIVE_INFINITY;
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 6);
-// 網站副本維持大圖觀感，同時為免費部署的容量限制預留空間。
-const imageMaxEdge = process.env.IMAGE_MAX_EDGE || "900";
-const imageQuality = process.env.IMAGE_QUALITY || "45";
+// 列表與燈箱共用清晰的 WebP 網站副本；原始照片保持不變。
+const imageMaxEdge = Number(process.env.IMAGE_MAX_EDGE || 1200);
+const imageQuality = Number(process.env.IMAGE_QUALITY || 70);
 const imagePattern = /\.(?:jpe?g|png|webp)$/i;
 const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|上傳)$/i;
 const genericFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|B&W|黑白|第二調色|第二版|上傳|重調|嘗試|試驗版)$/i;
@@ -132,19 +132,7 @@ async function runOptimizations() {
     while (cursor < optimizationTasks.length) {
       const task = optimizationTasks[cursor];
       cursor += 1;
-      await new Promise((resolve, reject) => {
-        const child = spawn("sips", [
-          "-s", "format", "jpeg",
-          "-Z", imageMaxEdge,
-          "--setProperty", "formatOptions", imageQuality,
-          task.source,
-          "--out", task.destination,
-        ], { stdio: "ignore" });
-        child.once("error", reject);
-        child.once("exit", (code) => code === 0
-          ? resolve()
-          : reject(new Error(`sips failed for ${task.source} with exit code ${code}`)));
-      });
+      await optimizeWebImage(task.source, task.destination, imageMaxEdge, imageQuality);
     }
   }
   await Promise.all(Array.from({ length: conversionConcurrency }, () => worker()));
@@ -183,7 +171,7 @@ const bands = bandDirectories.map((bandEntry, bandIndex) => {
       fs.mkdirSync(seriesDirectory, { recursive: true });
       const selected = chooseEvenly(sourceSeries.files, maximumSelected);
       const images = selected.map((source, imageIndex) => {
-        const filename = `${String(imageIndex + 1).padStart(2, "0")}.jpg`;
+        const filename = `${String(imageIndex + 1).padStart(2, "0")}.webp`;
         optimizeImage(source, path.join(seriesDirectory, filename));
         selectedImageCount += 1;
         return {
