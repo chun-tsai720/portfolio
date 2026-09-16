@@ -46,11 +46,6 @@ function chooseEvenly(files, limit) {
   );
 }
 
-// 同一關鍵字後方的 02、03…只是分批整理標記，在網站上合併成同一作品主題。
-function getProjectName(folderName) {
-  return folderName.replace(/\s+\d{2}$/, "").trim();
-}
-
 function optimizeImage(source, destination) {
   return new Promise((resolve, reject) => {
     const child = spawn("sips", [
@@ -88,26 +83,17 @@ const folders = fs.readdirSync(sourceRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."))
   .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true, sensitivity: "base" }));
 
-const projectGroups = new Map();
-for (const folder of folders) {
-  const projectName = getProjectName(folder.name);
-  const group = projectGroups.get(projectName) || [];
-  group.push(folder.name);
-  projectGroups.set(projectName, group);
-}
-
 const tasks = [];
 let sourceImageCount = 0;
 let selectedImageCount = 0;
 
-// 第一層資料夾依關鍵字成為 Prompt 系列；名稱末尾的 02、03…會合併，根目錄散落檔案不會混入。
-const projects = Array.from(projectGroups, ([projectName, folderNames], projectIndex) => {
-  const sourceFiles = folderNames.flatMap((folderName) => {
-    const folderPath = path.join(sourceRoot, folderName);
-    return fs.readdirSync(folderPath, { withFileTypes: true })
-      .filter((entry) => entry.isFile() && imagePattern.test(entry.name))
-      .map((entry) => path.join(folderPath, entry.name));
-  })
+// 每個第一層資料夾都是一個獨立作品頁；01、02、03…不再合併。
+const projects = folders.map((folder, projectIndex) => {
+  const projectName = folder.name;
+  const folderPath = path.join(sourceRoot, folder.name);
+  const sourceFiles = fs.readdirSync(folderPath, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && imagePattern.test(entry.name))
+    .map((entry) => path.join(folderPath, entry.name))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
   const selectedFiles = chooseEvenly(sourceFiles, maximumSelected);
   const slug = slugify(projectName, `series-${projectIndex + 1}`);
@@ -128,14 +114,14 @@ const projects = Array.from(projectGroups, ([projectName, folderNames], projectI
   return {
     name: projectName,
     slug,
-    sourceFolder: folderNames[0],
-    sourceFolders: folderNames,
+    sourceFolder: folder.name,
+    sourceFolders: [folder.name],
     sourceImageCount: sourceFiles.length,
     cover: images[0]?.src || null,
     series: [{
       name: "PROMPT SERIES",
       slug: "prompt-series",
-      sourcePath: folderNames.join(" + "),
+      sourcePath: folder.name,
       sourceImageCount: sourceFiles.length,
       images,
     }],
@@ -152,8 +138,8 @@ const catalog = {
   name: "MIDJOURNEY",
   label: "生成影像",
   selectionPolicy: Number.isFinite(maximumSelected)
-    ? `Up to ${maximumSelected} evenly distributed images from every organized folder`
-    : "All images from every organized folder",
+    ? `Up to ${maximumSelected} evenly distributed images from every independent folder`
+    : "All images from every independent folder",
   stats: {
     projectCount: projects.length,
     seriesCount: projects.length,

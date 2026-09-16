@@ -11,6 +11,7 @@
     "generate:rock": "node scripts/generate-rock-portfolio.js",
     "generate:photography": "node scripts/generate-photo-collections.js",
     "generate:midjourney": "node scripts/generate-midjourney-portfolio.js",
+    "organize:midjourney": "node scripts/normalize-midjourney-folder-names.js",
     "upload:media": "node scripts/upload-media-to-vercel-blob.js"
   },
   "dependencies": {

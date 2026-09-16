@@ -69,16 +69,25 @@ npm run generate:photography
 
 ## 從 Midjourney 整理資料夾重新產生網站素材
 
+先預覽資料夾名稱的正規化結果；確認後再加上 `--apply` 套用：
+
+```bash
+npm run organize:midjourney
+npm run organize:midjourney -- --apply
+```
+
+相同主題的多個資料夾會統一補上 `01`、`02`、`03` 等序號，但每個資料夾仍保持獨立，不會互相合併。
+
 ```bash
 npm run generate:midjourney
 ```
 
-產生器只會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾` 的第一層分類資料夾；相同關鍵字且名稱只差結尾 `02`、`03` 等編號的資料夾，會合併成一個 Prompt 系列與作品頁。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 900px、JPEG 品質 45，輸出至 `public/midjourney`。
+產生器只會讀取 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/AI/Midjourney/新增包含項目的檔案夾` 的第一層分類資料夾；每一個資料夾會建立一個獨立 Prompt 系列與作品頁，`01`、`02`、`03` 等編號不會合併。根目錄中未成組的散落檔案不會收錄，原始圖片也不會被修改。網頁圖片會縮至長邊 900px、JPEG 品質 45，輸出至 `public/midjourney`。
 
 可用 `MIDJOURNEY_SOURCE` 改寫來源；測試時也能用 `MAX_PER_SERIES=6 npm run generate:midjourney` 限制每組張數。
 
 ## GitHub 與 Vercel 部署
 
-四個網站圖片目錄 `public/rock`、`public/motor`、`public/portrait`、`public/midjourney` 會和程式碼一起保存在 GitHub，並透過相對路徑由同一個 Vercel 部署提供。完整網站副本共 12,086 張、約 720 MB；原始照片仍只保留在來源資料夾，不會被產生器修改。
+四個網站圖片目錄 `public/rock`、`public/motor`、`public/portrait`、`public/midjourney` 會和程式碼一起保存在 GitHub，並透過相對路徑由同一個 Vercel 部署提供。完整網站副本共 12,129 張、約 725 MB；原始照片仍只保留在來源資料夾，不會被產生器修改。
 
 由於 Vercel Hobby 的 CLI 原始檔上傳限制為 100 MB，這個專案必須透過已連接的 GitHub `main` 分支自動部署，不使用 `vercel --prod` 直接上傳。每次重新產生圖片後，先確認四個目錄總容量仍保有足夠空間，再提交到 GitHub。
