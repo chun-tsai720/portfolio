@@ -11,6 +11,8 @@ export default function MidjourneyPage() {
       eyebrow="A02 / VISUAL ARCHIVE / GENERATIVE ART / MIDJOURNEY"
       itemLabel="PROMPT SERIES"
       className="midjourney-index"
+      backHref="/works"
+      backLabel="ALL PROJECTS"
     />
   );
 }

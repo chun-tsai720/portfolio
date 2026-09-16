@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RevealImage from "@/components/RevealImage";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { formatCount } from "@/lib/catalog";
 
 export default function PhotoCollectionIndex({
@@ -8,10 +9,13 @@ export default function PhotoCollectionIndex({
   eyebrow = `WORKS / PHOTOGRAPHY / ${catalog.name}`,
   itemLabel = "SERIES",
   className = "",
+  backHref = "/works/photography",
+  backLabel = "PHOTOGRAPHY",
 }) {
 
   return (
     <main className={`index-page ${className}`.trim()}>
+      <Link className="back-link index-back-link" href={backHref}>← BACK TO {backLabel}</Link>
       <header className="page-title">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{catalog.name}</h1>
@@ -31,6 +35,7 @@ export default function PhotoCollectionIndex({
           </Link>
         ))}
       </div>
+      <ProjectNavigator backHref={backHref} backLabel={backLabel} />
     </main>
   );
 }

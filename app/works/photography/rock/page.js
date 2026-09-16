@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RevealImage from "@/components/RevealImage";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { formatCount, getBands } from "@/lib/catalog";
 import { ROCK_ARCHIVE_PATH } from "@/lib/site";
 
@@ -10,6 +11,7 @@ export default function RockArchivePage() {
 
   return (
     <main className="index-page">
+      <Link className="back-link index-back-link" href="/works/photography">← BACK TO PHOTOGRAPHY</Link>
       <header className="page-title">
         <p className="eyebrow">WORKS / PHOTOGRAPHY / ROCK</p>
         <h1>ROCK<br />ARCHIVE</h1>
@@ -29,6 +31,7 @@ export default function RockArchivePage() {
           </Link>
         ))}
       </div>
+      <ProjectNavigator backHref="/works/photography" backLabel="PHOTOGRAPHY" />
     </main>
   );
 }

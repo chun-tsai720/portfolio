@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import RevealImage from "@/components/RevealImage";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { formatCount, getBand, getBands } from "@/lib/catalog";
 import { mediaUrl, ROCK_ARCHIVE_PATH } from "@/lib/site";
 
@@ -23,7 +24,7 @@ export default async function BandPage({ params }) {
         {band.cover && <img src={mediaUrl(band.cover)} alt={`${band.name} 現場攝影`} />}
         <div className="hero-shade" />
         <div className="band-hero-copy">
-          <Link className="back-link" href={ROCK_ARCHIVE_PATH}>← ROCK ARCHIVE</Link>
+          <Link className="back-link" href={ROCK_ARCHIVE_PATH}>← BACK TO ROCK ARCHIVE</Link>
           <p className="eyebrow">PHOTOGRAPHY / {String(band.events.length).padStart(2, "0")} SESSIONS</p>
           <h1>{band.name}</h1>
           <p>{formatCount(band.sourceImageCount)} ARCHIVED FRAMES</p>
@@ -49,6 +50,7 @@ export default async function BandPage({ params }) {
           ))}
         </div>
       </section>
+      <ProjectNavigator backHref={ROCK_ARCHIVE_PATH} backLabel="ROCK ARCHIVE" />
     </main>
   );
 }

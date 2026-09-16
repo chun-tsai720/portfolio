@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { catalogStats, formatCount, getBands } from "@/lib/catalog";
 import { getPhotoCollection } from "@/lib/photoCollections";
 import { mediaUrl, ROCK_ARCHIVE_PATH } from "@/lib/site";
@@ -64,6 +65,7 @@ export default function PhotographyPage() {
           </Link>
         </div>
       </section>
+      <ProjectNavigator backHref="/works" backLabel="ALL PROJECTS" />
     </main>
   );
 }
