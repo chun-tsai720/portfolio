@@ -8,7 +8,7 @@ export default function MidjourneyPage() {
     <PhotoCollectionIndex
       catalog={getMidjourneyCatalog()}
       basePath="/works/midjourney"
-      eyebrow="02 / GENERATIVE ART / MIDJOURNEY"
+      eyebrow="A02 / VISUAL ARCHIVE / GENERATIVE ART / MIDJOURNEY"
       itemLabel="PROMPT SERIES"
       className="midjourney-index"
     />

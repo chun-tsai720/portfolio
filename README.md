@@ -1,12 +1,13 @@
-# CHUN / VISUAL PORTFOLIO
+# CHUN AI STUDIO / PORTFOLIO
 
-以 Next.js（JavaScript）製作的個人視覺作品集。網站不只收錄樂團攝影，而是以創作類型為第一層：
+以 Next.js（JavaScript）製作的跨域作品集。首頁保留 Chun AI Studio 立體 Logo 作為品牌入口，進入後以代表專案、能力證據與 Visual Archive 呈現科技藝術、應用設計與創意技術的整合方向。
 
-- Photography：包含 ROCK 現場、MOTOR 機車與 Portrait 人像攝影典藏。
-- Midjourney：依整理後的 Prompt 關鍵字資料夾，自動產生系列索引與作品頁。
-- VJ / Live Visuals：已建立未來作品入口與版型。
+- LUMIN：畢業專題，也是第一個 Vibe Coding 作品；整合攝影、AI 生成、視覺識別、策展動線與互動網站。
+- Social Media API：Node.js、Express、PostgreSQL、JWT、測試與 Docker 後端實作。
+- MCP Trip Server：MCP Tools、Resources、Prompts、外部天氣 API 與 Redis 暫存的課程延伸原型。
+- Visual Archive：保留 Photography、Midjourney 與發展中的 VJ / Live Visuals。
 - About：作者介紹。
-- Contact：聯絡方式；真實信箱與 Instagram 可在 `lib/site.js` 填入。
+- Contact：跨域合作方向與可直接使用的 Email、電話。
 
 ROCK 的資訊架構由原始資料夾自動產生：一個樂團一個頁面，每個活動是該樂團下的獨立頁面，活動內再保留「重調」、「黑白」、「第二調色」等不同最底層系列。
 
@@ -20,6 +21,9 @@ npm run dev
 開啟 `http://localhost:3000`。主要路徑如下：
 
 - `/works`
+- `/works/lumin`
+- `/works/social-media-api`
+- `/works/mcp-server`
 - `/works/photography`
 - `/works/photography/rock`
 - `/works/photography/motor`

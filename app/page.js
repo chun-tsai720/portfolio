@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="home-entry">
-      <Link className="home-entry-link" href="/works" aria-label="進入 Chun AI Studio 作品目錄">
+      <Link className="home-entry-link" href="/works" aria-label="進入 Chun AI Studio 作品集">
         <img
           className="home-entry-image"
           src="/home/chun-ai-studio.jpg"
@@ -11,9 +11,9 @@ export default function HomePage() {
         />
         <div className="home-entry-shade" />
         <div className="home-entry-copy">
-          <p className="eyebrow">PHOTOGRAPHY / GENERATIVE ART / LIVE VISUALS</p>
+          <p className="eyebrow">ART / DESIGN / TECHNOLOGY / INTEGRATION</p>
           <h1>Chun<br />AI Studio</h1>
-          <span>ENTER THE DIRECTORY ↗</span>
+          <span>ENTER THE PORTFOLIO ↗</span>
         </div>
       </Link>
     </main>

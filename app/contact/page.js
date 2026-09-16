@@ -20,14 +20,14 @@ export default function ContactPage() {
   return (
     <main className="contact-page">
       <header className="contact-title">
-        <p className="eyebrow">PROJECTS / COLLABORATIONS / COMMISSIONS</p>
-        <h1>LET&apos;S MAKE<br />SOMETHING<br />VISIBLE.</h1>
+        <p className="eyebrow">PROJECTS / COLLABORATIONS / CONVERSATIONS</p>
+        <h1>LET&apos;S BUILD<br />THE WHOLE<br />EXPERIENCE.</h1>
       </header>
       <section className="contact-content">
         <div>
           <p className="section-number">CONTACT</p>
-          <h2>攝影委託、生成視覺、VJ 演出或其他合作，都可以從這裡開始。</h2>
-          <p>聯絡資料確認後，只需要修改一個設定檔，這裡就會自動變成可點擊的 Email 與社群連結。</p>
+          <h2>如果你正在尋找能理解視覺，也願意把技術真正做進體驗裡的合作夥伴，可以從這裡開始。</h2>
+          <p>開放科技藝術、應用設計、互動網站、視覺內容、影像創作與跨域專案合作。</p>
         </div>
         <div className="contact-list">
           <ContactItem
@@ -37,10 +37,10 @@ export default function ContactPage() {
             placeholder="尚未提供聯絡信箱"
           />
           <ContactItem
-            label="INSTAGRAM"
-            value={siteInfo.instagram}
-            href={siteInfo.instagram}
-            placeholder="尚未提供 Instagram"
+            label="PHONE"
+            value={siteInfo.phone}
+            href={`tel:${siteInfo.phoneHref}`}
+            placeholder="尚未提供電話"
           />
           <div className="contact-row">
             <span>BASED IN</span>

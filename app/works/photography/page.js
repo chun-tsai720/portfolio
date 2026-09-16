@@ -17,7 +17,7 @@ export default function PhotographyPage() {
         <div className="hero-shade" />
         <div className="discipline-hero-copy">
           <Link className="back-link" href="/works">← ALL WORKS</Link>
-          <p className="eyebrow">01 / PHOTOGRAPHY</p>
+          <p className="eyebrow">A01 / VISUAL ARCHIVE / PHOTOGRAPHY</p>
           <h1>REAL<br />LIGHT.</h1>
           <p>我透過觀景窗捕捉光影的輪廓，保存人物、聲音與現場共同發生的瞬間。</p>
         </div>

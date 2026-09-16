@@ -1,6 +1,14 @@
 import Link from "next/link";
 
-export default function FutureDiscipline({ eyebrow, title, label, description, className }) {
+export default function FutureDiscipline({
+  eyebrow,
+  title,
+  label,
+  description,
+  className,
+  statusLabel = "ARCHIVE",
+  status = "OPENING SOON",
+}) {
   return (
     <main className={`future-page ${className}`}>
       <div className="future-stage" aria-hidden="true">
@@ -13,8 +21,8 @@ export default function FutureDiscipline({ eyebrow, title, label, description, c
         <h2>{label}</h2>
         <p>{description}</p>
         <div className="future-status">
-          <span>ARCHIVE</span>
-          <b>OPENING SOON</b>
+          <span>{statusLabel}</span>
+          <b>{status}</b>
         </div>
       </div>
     </main>
