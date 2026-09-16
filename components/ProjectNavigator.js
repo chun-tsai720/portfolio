@@ -53,7 +53,7 @@ export default function ProjectNavigator({ backHref = "/works", backLabel = "ALL
         <p className="project-navigator-current">
           CURRENT / <span>{currentProject?.label || "PROJECT"}</span>
         </p>
-        <h2 id="project-navigator-title">選擇你想前往的專案。</h2>
+        <h2 id="project-navigator-title">前往其他專案</h2>
         <label className="project-select">
           <span>SELECT A PROJECT</span>
           <select value={destination} onChange={handleChange} aria-label="選擇前往的專案">
