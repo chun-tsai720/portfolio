@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProjectNavigator from "@/components/ProjectNavigator";
 
 export const metadata = {
   title: "LUMIN 映光",
@@ -135,14 +136,7 @@ export default function LuminPage() {
         </ul>
       </section>
 
-      <section className="case-next">
-        <p className="section-number">NEXT PROJECT</p>
-        <Link href="/works/social-media-api">
-          <span>02</span>
-          <h2>SOCIAL MEDIA API</h2>
-          <b>↗</b>
-        </Link>
-      </section>
+      <ProjectNavigator />
     </main>
   );
 }

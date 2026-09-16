@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import LightboxGallery from "@/components/LightboxGallery";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { formatCount, getBand, getBands, getEvent } from "@/lib/catalog";
 import { ROCK_ARCHIVE_PATH } from "@/lib/site";
 
@@ -27,7 +28,7 @@ export default async function EventPage({ params }) {
   return (
     <main className="event-page">
       <header className="event-heading">
-        <Link className="back-link" href={bandPath}>← {band.name}</Link>
+        <Link className="back-link" href={bandPath}>← BACK TO {band.name}</Link>
         <p className="eyebrow">PHOTOGRAPHY / {event.date || "LIVE SESSION"}</p>
         <h1>{event.name}</h1>
         <div className="event-meta">
@@ -48,11 +49,7 @@ export default async function EventPage({ params }) {
           </section>
         ))}
       </div>
-      <nav className="event-pagination" aria-label="活動頁面導覽">
-        {event.previous ? <Link href={`${bandPath}/${event.previous.slug}`}>← {event.previous.name}</Link> : <span />}
-        <Link href={bandPath}>ALL SESSIONS</Link>
-        {event.next ? <Link href={`${bandPath}/${event.next.slug}`}>{event.next.name} →</Link> : <span />}
-      </nav>
+      <ProjectNavigator backHref={bandPath} backLabel={band.name} />
     </main>
   );
 }

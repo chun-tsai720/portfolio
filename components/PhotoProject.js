@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LightboxGallery from "@/components/LightboxGallery";
+import ProjectNavigator from "@/components/ProjectNavigator";
 import { formatCount } from "@/lib/catalog";
 
 export default function PhotoProject({
@@ -13,7 +14,7 @@ export default function PhotoProject({
   return (
     <main className={`event-page ${className}`.trim()}>
       <header className="event-heading">
-        <Link className="back-link" href={basePath}>← {catalog.name}</Link>
+        <Link className="back-link" href={basePath}>← BACK TO {catalog.name}</Link>
         <p className="eyebrow">{eyebrow}</p>
         <h1>{project.name}</h1>
         <div className="event-meta">
@@ -34,6 +35,7 @@ export default function PhotoProject({
           </section>
         ))}
       </div>
+      <ProjectNavigator backHref={basePath} backLabel={catalog.name} />
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectNavigator from "@/components/ProjectNavigator";
 
 export const metadata = {
   title: "Social Media API",
@@ -70,10 +71,7 @@ export default function SocialMediaApiPage() {
         </ul>
       </section>
 
-      <section className="case-next">
-        <p className="section-number">NEXT PROJECT</p>
-        <Link href="/works/mcp-server"><span>03</span><h2>MCP TRIP SERVER</h2><b>↗</b></Link>
-      </section>
+      <ProjectNavigator />
     </main>
   );
 }

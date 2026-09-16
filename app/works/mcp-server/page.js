@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ProjectNavigator from "@/components/ProjectNavigator";
 
 export const metadata = {
   title: "MCP Trip Server",
@@ -61,10 +62,7 @@ export default function McpServerPage() {
         </ul>
       </section>
 
-      <section className="case-next">
-        <p className="section-number">EXPLORE THE FOUNDATION</p>
-        <Link href="/works/photography"><span>A01</span><h2>VISUAL ARCHIVE</h2><b>↗</b></Link>
-      </section>
+      <ProjectNavigator />
     </main>
   );
 }
