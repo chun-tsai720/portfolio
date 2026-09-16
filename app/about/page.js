@@ -13,7 +13,6 @@ export default function AboutPage() {
       <section className="about-profile">
         <div className="about-portrait">
           <img src="/about/chun.jpg" alt={siteInfo.creator} />
-          <span>{siteInfo.studentId}</span>
         </div>
         <div className="about-copy">
           <p className="section-number">蔡濬守 / {siteInfo.creatorEn}</p>
