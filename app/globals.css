@@ -257,6 +257,10 @@ body:has(.home-entry) .site-header {
   backdrop-filter: blur(16px);
 }
 
+.project-menu:not([open]) .project-menu-panel {
+  display: none;
+}
+
 .project-menu-panel::before {
   position: absolute;
   top: -.45rem;
@@ -1527,8 +1531,11 @@ a.contact-row:hover { color: var(--acid); }
 }
 
 @media (max-width: 540px) {
-  .site-header nav > a:last-child { display: none; }
-  .site-header nav { gap: 1rem; }
+  .site-header { padding-top: 1.15rem; padding-bottom: 1.15rem; }
+  .wordmark { font-size: .82rem; white-space: nowrap; }
+  .site-header nav { gap: .65rem; font-size: .58rem; letter-spacing: .08em; }
+  .site-header nav > a:last-child { display: block; }
+  .project-menu summary::after { margin-left: .25rem; }
   .project-menu-panel { position: fixed; top: 4.5rem; right: var(--pad); left: var(--pad); width: auto; }
   .hero-copy { padding-bottom: 5rem; }
   .hero-foot > p { max-width: 12rem; }
@@ -2970,5 +2977,74 @@ a.contact-row:hover { color: var(--acid); }
 
   .mcp-flow {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .page-title,
+  .page-title > *,
+  .case-flow > *,
+  .collection-section,
+  .collection-stack,
+  .collection-card,
+  .inner-page-title,
+  .contact-title,
+  .project-index-hero,
+  .project-index-hero > * {
+    min-width: 0;
+  }
+
+  .project-index-hero h1,
+  .page-title h1,
+  .inner-page-title h1,
+  .contact-title h1 {
+    font-size: clamp(3rem, 15vw, 4.5rem);
+    overflow-wrap: anywhere;
+  }
+
+  .midjourney-index .page-title .eyebrow {
+    overflow-wrap: anywhere;
+  }
+
+  .case-flow-image {
+    width: 100%;
+  }
+
+  .case-flow-copy {
+    min-width: 0;
+    padding: 3rem var(--pad);
+  }
+
+  .case-flow-copy h2 {
+    font-size: clamp(2.15rem, 11vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .collection-card {
+    padding: 1.5rem;
+  }
+
+  .collection-card h2 {
+    font-size: clamp(2.75rem, 14vw, 3.5rem);
+    overflow-wrap: anywhere;
+  }
+
+  .case-tech > div,
+  .case-tech > ul {
+    min-width: 0;
+  }
+
+  .case-tech h2 {
+    font-size: clamp(2.15rem, 11vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .band-row {
+    grid-template-columns: 2rem 5rem minmax(0, 1fr) 1.5rem;
+  }
+
+  .band-row h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
