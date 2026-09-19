@@ -5,7 +5,7 @@
 - LUMIN：畢業專題，也是第一個 Vibe Coding 作品；整合攝影、AI 生成、視覺識別、策展動線與互動網站。
 - Social Media API：Node.js、Express、PostgreSQL、JWT、測試與 Docker 後端實作。
 - MCP Trip Server：MCP Tools、Resources、Prompts、外部天氣 API 與 Redis 暫存的課程延伸原型。
-- Visual Archive：保留 Photography、Midjourney 與發展中的 VJ / Live Visuals。
+- Visual Archive：保留 Photography、Midjourney 與 Visuals；P5.js 互動動畫收錄在 Visuals 下。
 - About：作者介紹。
 - Contact：跨域合作方向與可直接使用的 Email、電話。
 
@@ -29,7 +29,8 @@ npm run dev
 - `/works/photography/motor`
 - `/works/photography/portrait`
 - `/works/midjourney`
-- `/works/vj`
+- `/works/visuals`
+- `/works/visuals/p5js`
 - `/about`
 - `/contact`
 

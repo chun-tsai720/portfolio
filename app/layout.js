@@ -31,7 +31,8 @@ export default function RootLayout({ children }) {
                 <p>VISUAL ARCHIVE</p>
                 <Link href="/works/photography">Photography <span>A01</span></Link>
                 <Link href="/works/midjourney">Midjourney <span>A02</span></Link>
-                <Link href="/works/vj">VJ / Live Visuals <span>A03</span></Link>
+                <Link href="/works/visuals">Visuals <span>A03</span></Link>
+                <Link href="/works/visuals/p5js">↳ P5.js <span>A03.1</span></Link>
               </div>
             </details>
             <Link href="/about">關於</Link>

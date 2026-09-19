@@ -13,7 +13,7 @@ export default function DisciplineGrid({ photographyCover, midjourneyCover }) {
             {item.slug === "midjourney" && midjourneyCover && (
               <img src={midjourneyCover} alt="Midjourney 生成影像分類" />
             )}
-            {item.slug === "vj" && <div className="future-visual" aria-hidden="true" />}
+            {item.slug === "visuals" && <div className="future-visual" aria-hidden="true" />}
           </div>
           <div className="discipline-copy">
             <span>{item.number}</span>
