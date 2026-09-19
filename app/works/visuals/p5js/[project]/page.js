@@ -27,7 +27,6 @@ export default async function P5ProjectPage({ params }) {
         <p className="eyebrow">P5.JS / {work.label}</p>
         <h1>{work.title}</h1>
         <div className="p5-project-meta">
-          <p>{work.description}</p>
           <dl>
             <div><dt>DATE</dt><dd>{work.date}</dd></div>
             <div><dt>MEDIUM</dt><dd>JAVASCRIPT / P5.JS</dd></div>

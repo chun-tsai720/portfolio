@@ -2231,50 +2231,6 @@ a.contact-row:hover { color: var(--acid); }
   letter-spacing: -.085em;
 }
 
-.visuals-hero-description {
-  max-width: 36rem;
-  margin: 0;
-  font-size: clamp(.9rem, 1.5vw, 1.2rem);
-  line-height: 1.8;
-}
-
-.visuals-p5-link {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  width: min(100%, 38rem);
-  align-items: center;
-  margin-top: 2rem;
-  padding: 1.2rem 1.4rem;
-  gap: 1rem;
-  color: var(--ink);
-  background: var(--acid);
-  border: 1px solid var(--acid);
-  transition: color 220ms ease, background 220ms ease, transform 220ms ease;
-}
-
-.visuals-p5-link span {
-  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
-  font-weight: 600;
-  letter-spacing: -.045em;
-}
-
-.visuals-p5-link small {
-  font-size: .56rem;
-  font-weight: 600;
-  letter-spacing: .13em;
-}
-
-.visuals-p5-link b {
-  font-size: 1.1rem;
-}
-
-.visuals-p5-link:hover,
-.visuals-p5-link:focus-visible {
-  color: var(--acid);
-  background: rgba(7,7,13,.86);
-  transform: translateY(-.25rem);
-}
-
 .p5-index-hero {
   min-height: 88svh;
   padding: clamp(8rem, 14vw, 13rem) var(--pad) 5rem;
@@ -2300,14 +2256,6 @@ a.contact-row:hover { color: var(--acid); }
   align-items: flex-end;
   justify-content: space-between;
   gap: 2rem;
-}
-
-.p5-index-hero > div p {
-  max-width: 38rem;
-  margin: 0;
-  color: var(--muted);
-  font-size: clamp(.95rem, 1.4vw, 1.15rem);
-  line-height: 1.9;
 }
 
 .p5-index-hero > div span {
@@ -2377,8 +2325,7 @@ a.contact-row:hover { color: var(--acid); }
   color: var(--acid);
 }
 
-.p5-work-card-copy > p,
-.p5-work-card-copy > small {
+.p5-work-card-copy > p {
   color: var(--muted);
 }
 
@@ -2389,13 +2336,6 @@ a.contact-row:hover { color: var(--acid); }
   font-weight: 500;
   line-height: .94;
   letter-spacing: -.06em;
-}
-
-.p5-work-card-copy small {
-  grid-column: 2 / 3;
-  max-width: 34rem;
-  margin-top: .6rem;
-  line-height: 1.7;
 }
 
 .p5-work-card-copy > b {
@@ -2428,16 +2368,9 @@ a.contact-row:hover { color: var(--acid); }
 
 .p5-project-meta {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(16rem, 28rem);
   align-items: end;
-  gap: clamp(2rem, 7vw, 8rem);
-}
-
-.p5-project-meta > p {
-  max-width: 38rem;
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.9;
+  justify-content: end;
 }
 
 .p5-project-meta dl {
@@ -3369,26 +3302,11 @@ a.contact-row:hover { color: var(--acid); }
     font-size: clamp(3rem, 16vw, 5rem);
   }
 
-  .visuals-p5-link {
-    grid-template-columns: 1fr auto;
-  }
-
-  .visuals-p5-link small {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .visuals-p5-link b {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-
   .p5-work-card-copy {
     grid-template-columns: 2rem 1fr;
   }
 
   .p5-work-card-copy h2,
-  .p5-work-card-copy small,
   .p5-work-card-copy > b {
     grid-column: 2;
   }
