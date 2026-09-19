@@ -26,7 +26,12 @@ export default function VisualsPage() {
           <Link className="back-link" href="/works">← ALL WORKS</Link>
           <p className="eyebrow">A03 / VISUAL PRACTICE / MOTION</p>
           <h1>VISUALS</h1>
-          <p>從程式生成、互動動畫到現場影像，探索時間、節奏與觀看方式如何改變視覺。</p>
+          <p className="visuals-hero-description">從程式生成、互動動畫到現場影像，探索時間、節奏與觀看方式如何改變視覺。</p>
+          <Link className="visuals-p5-link" href="/works/visuals/p5js">
+            <span>P5.JS</span>
+            <small>{String(p5Works.length).padStart(2, "0")} INTERACTIVE SKETCHES</small>
+            <b>↗</b>
+          </Link>
         </div>
       </section>
 
