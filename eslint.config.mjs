@@ -9,5 +9,9 @@ export default defineConfig([
       "@next/next/no-img-element": "off",
     },
   },
-  globalIgnores([".next/**", "public/rock/**", "src/data/rock-catalog.json"]),
+  globalIgnores([
+    ".next/**",
+    "public/rock/**",
+    "src/data/rock-catalog.json",
+  ]),
 ]);

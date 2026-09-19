@@ -21,7 +21,8 @@ const navigationGroups = [
       { label: "MOTOR", href: "/works/photography/motor" },
       { label: "PORTRAIT", href: "/works/photography/portrait" },
       { label: "MIDJOURNEY", href: "/works/midjourney" },
-      { label: "VJ / LIVE VISUALS", href: "/works/vj" },
+      { label: "VISUALS / 動態視覺", href: "/works/visuals" },
+      { label: "P5.JS / CREATIVE CODING", href: "/works/visuals/p5js" },
     ],
   },
 ];
