@@ -1,19 +1,18 @@
 import Link from "next/link";
 import ProjectNavigator from "@/components/ProjectNavigator";
-import { catalogStats, formatCount, getBands } from "@/lib/catalog";
+import { catalogStats, formatCount } from "@/lib/catalog";
 import { getPhotoCollection } from "@/lib/photoCollections";
-import { mediaUrl, ROCK_ARCHIVE_PATH } from "@/lib/site";
+import { ROCK_ARCHIVE_PATH } from "@/lib/site";
 
 export const metadata = { title: "攝影作品" };
 
 export default function PhotographyPage() {
-  const cover = getBands().find((band) => band.cover)?.cover;
   const portrait = getPhotoCollection("portrait");
 
   return (
     <main className="photography-page">
       <section className="discipline-hero">
-        {cover && <img src={mediaUrl(cover)} alt="現場音樂攝影" />}
+        <img src="/covers/photography-hero.webp" alt="暴噬者於巨獸搖滾音樂祭演出" />
         <div className="hero-shade" />
         <div className="discipline-hero-copy">
           <Link className="back-link" href="/works">← ALL WORKS</Link>
