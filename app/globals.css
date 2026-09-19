@@ -2275,17 +2275,6 @@ a.contact-row:hover { color: var(--acid); }
   transform: translateY(-.25rem);
 }
 
-.visuals-collections .collection-card.is-disabled {
-  cursor: default;
-  opacity: .55;
-}
-
-.visuals-collections .collection-card.is-disabled:hover {
-  color: var(--paper);
-  background: transparent;
-  transform: none;
-}
-
 .p5-index-hero {
   min-height: 88svh;
   padding: clamp(8rem, 14vw, 13rem) var(--pad) 5rem;
