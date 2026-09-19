@@ -18,7 +18,6 @@ const navigationGroups = [
     options: [
       { label: "PHOTOGRAPHY / 攝影總覽", href: "/works/photography" },
       { label: "ROCK ARCHIVE", href: "/works/photography/rock" },
-      { label: "MOTOR", href: "/works/photography/motor" },
       { label: "PORTRAIT", href: "/works/photography/portrait" },
       { label: "MIDJOURNEY", href: "/works/midjourney" },
       { label: "VISUALS / 動態視覺", href: "/works/visuals" },

@@ -8,7 +8,6 @@ export const metadata = { title: "攝影作品" };
 
 export default function PhotographyPage() {
   const cover = getBands().find((band) => band.cover)?.cover;
-  const motor = getPhotoCollection("motor");
   const portrait = getPhotoCollection("portrait");
 
   return (
@@ -38,21 +37,9 @@ export default function PhotographyPage() {
             </dl>
             <span>ENTER ARCHIVE ↗</span>
           </Link>
-          <Link className="collection-card is-paper" href="/works/photography/motor">
-            <div>
-              <p>02 / AUTOMOTIVE PHOTOGRAPHY</p>
-              <h2>MOTOR</h2>
-            </div>
-            <dl>
-              <div><dt>{motor.stats.projectCount}</dt><dd>PROJECTS</dd></div>
-              <div><dt>{motor.stats.seriesCount}</dt><dd>SERIES</dd></div>
-              <div><dt>{formatCount(motor.stats.sourceImageCount)}</dt><dd>FRAMES</dd></div>
-            </dl>
-            <span>ENTER COLLECTION ↗</span>
-          </Link>
           <Link className="collection-card is-outline" href="/works/photography/portrait">
             <div>
-              <p>03 / PORTRAIT PHOTOGRAPHY</p>
+              <p>02 / PORTRAIT PHOTOGRAPHY</p>
               <h2>PORTRAIT</h2>
             </div>
             <dl>
