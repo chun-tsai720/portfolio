@@ -24,9 +24,9 @@ export default function VisualsPage() {
         <div className="hero-shade" />
         <div className="visuals-hero-copy">
           <Link className="back-link" href="/works">← ALL WORKS</Link>
-          <p className="eyebrow">A03 / VISUAL PRACTICE / MOTION</p>
+          <p className="eyebrow">A03 / VISUAL SOFTWARE / EXPERIMENTS</p>
           <h1>VISUALS</h1>
-          <p className="visuals-hero-description">從程式生成、互動動畫到現場影像，探索時間、節奏與觀看方式如何改變視覺。</p>
+          <p className="visuals-hero-description">以不同軟體與程式工具探索生成、互動、時間與視覺；P5.js 是目前公開的第一個作品分類。</p>
           <Link className="visuals-p5-link" href="/works/visuals/p5js">
             <span>P5.JS</span>
             <small>{String(p5Works.length).padStart(2, "0")} INTERACTIVE SKETCHES</small>
@@ -49,17 +49,6 @@ export default function VisualsPage() {
             </dl>
             <span>ENTER COLLECTION ↗</span>
           </Link>
-          <article className="collection-card is-outline is-disabled">
-            <div>
-              <p>02 / REAL-TIME IMAGE</p>
-              <h2>VJ</h2>
-            </div>
-            <dl>
-              <div><dt>—</dt><dd>STATUS</dd></div>
-              <div><dt>LIVE</dt><dd>MEDIUM</dd></div>
-            </dl>
-            <span>IN DEVELOPMENT</span>
-          </article>
         </div>
       </section>
 
