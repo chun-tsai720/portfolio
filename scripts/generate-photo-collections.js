@@ -22,7 +22,8 @@ const collections = [
     slug: "portrait",
     name: "PORTRAIT",
     label: "人像攝影",
-    sourceRoot: process.env.PORTRAIT_SOURCE || "/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait",
+    sourceRoot: process.env.PORTRAIT_SOURCE || "/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait/Portrait",
+    groupByTopLevelFolder: true,
   },
 ];
 
@@ -66,6 +67,17 @@ function findImageLeaves(directory, relativeParts = []) {
   return ownImages.length ? [{ relativeParts, files: ownImages }] : [];
 }
 
+function findAllImages(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => !entry.name.startsWith("."))
+    .flatMap((entry) => {
+      const entryPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) return findAllImages(entryPath);
+      return entry.isFile() && imagePattern.test(entry.name) ? [entryPath] : [];
+    })
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+}
+
 function optimizeImage(source, destination) {
   return optimizeWebImage(source, destination, imageMaxEdge, imageQuality);
 }
@@ -91,17 +103,31 @@ async function generateCollection(config) {
   fs.mkdirSync(outputRoot, { recursive: true });
 
   const groups = new Map();
-  for (const leaf of findImageLeaves(config.sourceRoot)) {
-    if (!leaf.relativeParts.length) continue;
-    const projectName = cleanName(leaf.relativeParts[0]);
-    const seriesParts = leaf.relativeParts.slice(1).filter((part) => !technicalFolderPattern.test(part));
-    const seriesName = seriesParts.map(cleanName).join(" / ") || "完成版";
-    if (!groups.has(projectName)) groups.set(projectName, []);
-    groups.get(projectName).push({
-      name: seriesName,
-      sourcePath: leaf.relativeParts.join("/"),
-      files: leaf.files,
-    });
+  if (config.groupByTopLevelFolder) {
+    const albumFolders = fs.readdirSync(config.sourceRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."));
+    for (const folder of albumFolders) {
+      const files = findAllImages(path.join(config.sourceRoot, folder.name));
+      if (!files.length) continue;
+      groups.set(cleanName(folder.name), [{
+        name: "完成版",
+        sourcePath: folder.name,
+        files,
+      }]);
+    }
+  } else {
+    for (const leaf of findImageLeaves(config.sourceRoot)) {
+      if (!leaf.relativeParts.length) continue;
+      const projectName = cleanName(leaf.relativeParts[0]);
+      const seriesParts = leaf.relativeParts.slice(1).filter((part) => !technicalFolderPattern.test(part));
+      const seriesName = seriesParts.map(cleanName).join(" / ") || "完成版";
+      if (!groups.has(projectName)) groups.set(projectName, []);
+      groups.get(projectName).push({
+        name: seriesName,
+        sourcePath: leaf.relativeParts.join("/"),
+        files: leaf.files,
+      });
+    }
   }
 
   const tasks = [];
@@ -144,7 +170,9 @@ async function generateCollection(config) {
     slug: config.slug,
     name: config.name,
     label: config.label,
-    selectionPolicy: "All images from every deepest source folder",
+    selectionPolicy: config.groupByTopLevelFolder
+      ? "One album per immediate source folder, including every nested image"
+      : "All images from every deepest source folder",
     stats: {
       projectCount: projects.length,
       seriesCount: projects.reduce((total, project) => total + project.series.length, 0),
@@ -161,4 +189,16 @@ async function generateCollection(config) {
   console.log(`Generated ${projects.length} ${config.name} projects, ${catalog.stats.seriesCount} series, ${imageCount} images.`);
 }
 
-for (const collection of collections) await generateCollection(collection);
+const requestedSlugs = process.argv.slice(2);
+const selectedCollections = requestedSlugs.length
+  ? collections.filter((collection) => requestedSlugs.includes(collection.slug))
+  : collections;
+const unknownSlugs = requestedSlugs.filter(
+  (slug) => !collections.some((collection) => collection.slug === slug),
+);
+
+if (unknownSlugs.length) {
+  throw new Error(`Unknown photo collection: ${unknownSlugs.join(", ")}`);
+}
+
+for (const collection of selectedCollections) await generateCollection(collection);
