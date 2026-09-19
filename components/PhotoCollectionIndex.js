@@ -11,6 +11,7 @@ export default function PhotoCollectionIndex({
   className = "",
   backHref = "/works/photography",
   backLabel = "PHOTOGRAPHY",
+  showStats = true,
 }) {
 
   return (
@@ -19,7 +20,11 @@ export default function PhotoCollectionIndex({
       <header className="page-title">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{catalog.name}</h1>
-        <p>{catalog.stats.projectCount} 個主題，{formatCount(catalog.stats.sourceImageCount)} 張最底層作品。</p>
+        {showStats && (
+          <p className="page-title-summary">
+            {catalog.stats.projectCount} 個主題，{formatCount(catalog.stats.sourceImageCount)} 張最底層作品。
+          </p>
+        )}
       </header>
       <div className="band-list">
         {catalog.projects.map((project, index) => (

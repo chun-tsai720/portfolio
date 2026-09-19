@@ -13,6 +13,7 @@ export default function MidjourneyPage() {
       className="midjourney-index"
       backHref="/works"
       backLabel="ALL PROJECTS"
+      showStats={false}
     />
   );
 }
