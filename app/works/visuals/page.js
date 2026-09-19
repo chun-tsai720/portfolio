@@ -26,12 +26,6 @@ export default function VisualsPage() {
           <Link className="back-link" href="/works">← ALL WORKS</Link>
           <p className="eyebrow">A03 / VISUAL SOFTWARE / EXPERIMENTS</p>
           <h1>VISUALS</h1>
-          <p className="visuals-hero-description">以不同軟體與程式工具探索生成、互動、時間與視覺；P5.js 是目前公開的第一個作品分類。</p>
-          <Link className="visuals-p5-link" href="/works/visuals/p5js">
-            <span>P5.JS</span>
-            <small>{String(p5Works.length).padStart(2, "0")} INTERACTIVE SKETCHES</small>
-            <b>↗</b>
-          </Link>
         </div>
       </section>
 
