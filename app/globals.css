@@ -677,13 +677,6 @@ body:has(.home-entry) .site-header {
   letter-spacing: -.085em;
 }
 
-.discipline-hero-copy > p:last-child {
-  max-width: 36rem;
-  margin: 0;
-  font-size: clamp(.9rem, 1.5vw, 1.2rem);
-  line-height: 1.8;
-}
-
 .collection-section {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -1082,7 +1075,7 @@ a.contact-row:hover { color: var(--acid); }
   font-size: clamp(5rem, 14vw, 13rem);
 }
 
-.page-title > p:last-child {
+.page-title-summary {
   grid-column: 2;
   max-width: 25rem;
   margin: 3rem 0 0;
@@ -1490,7 +1483,7 @@ a.contact-row:hover { color: var(--acid); }
   .home-intro .stats,
   .section-heading h2,
   .page-title h1,
-  .page-title > p:last-child,
+  .page-title-summary,
   .event-heading .eyebrow,
   .event-heading h1,
   .event-meta,
