@@ -6,8 +6,8 @@ import { optimizeWebImage } from "./optimize-web-image.js";
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conversionConcurrency = Number(process.env.IMAGE_WORKERS || 8);
 // 列表與燈箱共用清晰的 WebP 網站副本；原始照片保持不變。
-const imageMaxEdge = Number(process.env.IMAGE_MAX_EDGE || 1200);
-const imageQuality = Number(process.env.IMAGE_QUALITY || 70);
+const defaultImageMaxEdge = Number(process.env.IMAGE_MAX_EDGE || 1200);
+const defaultImageQuality = Number(process.env.IMAGE_QUALITY || 70);
 const imagePattern = /\.(?:jpe?g|png|webp|heic|tiff?)$/i;
 const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未命名檔案夾(?: \d+)?|上傳)$/i;
 
@@ -23,7 +23,9 @@ const collections = [
     name: "PORTRAIT",
     label: "人像攝影",
     sourceRoot: process.env.PORTRAIT_SOURCE || "/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait/Portrait",
-    groupByTopLevelFolder: true,
+    groupByLeafFolder: true,
+    imageMaxEdge: 1600,
+    imageQuality: 78,
   },
 ];
 
@@ -67,19 +69,8 @@ function findImageLeaves(directory, relativeParts = []) {
   return ownImages.length ? [{ relativeParts, files: ownImages }] : [];
 }
 
-function findAllImages(directory) {
-  return fs.readdirSync(directory, { withFileTypes: true })
-    .filter((entry) => !entry.name.startsWith("."))
-    .flatMap((entry) => {
-      const entryPath = path.join(directory, entry.name);
-      if (entry.isDirectory()) return findAllImages(entryPath);
-      return entry.isFile() && imagePattern.test(entry.name) ? [entryPath] : [];
-    })
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
-}
-
-function optimizeImage(source, destination) {
-  return optimizeWebImage(source, destination, imageMaxEdge, imageQuality);
+function optimizeImage(source, destination, maxEdge, quality) {
+  return optimizeWebImage(source, destination, maxEdge, quality);
 }
 
 async function runTasks(tasks) {
@@ -88,7 +79,7 @@ async function runTasks(tasks) {
     while (cursor < tasks.length) {
       const task = tasks[cursor];
       cursor += 1;
-      await optimizeImage(task.source, task.destination);
+      await optimizeImage(task.source, task.destination, task.maxEdge, task.quality);
     }
   }
   await Promise.all(Array.from({ length: conversionConcurrency }, () => worker()));
@@ -99,20 +90,26 @@ async function generateCollection(config) {
 
   const outputRoot = path.join(projectRoot, "public", config.slug);
   const dataPath = path.join(projectRoot, "src", "data", `${config.slug}-catalog.json`);
+  const maxEdge = config.imageMaxEdge || defaultImageMaxEdge;
+  const quality = config.imageQuality || defaultImageQuality;
   fs.rmSync(outputRoot, { recursive: true, force: true });
   fs.mkdirSync(outputRoot, { recursive: true });
 
   const groups = new Map();
-  if (config.groupByTopLevelFolder) {
-    const albumFolders = fs.readdirSync(config.sourceRoot, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory() && !entry.name.startsWith("."));
-    for (const folder of albumFolders) {
-      const files = findAllImages(path.join(config.sourceRoot, folder.name));
-      if (!files.length) continue;
-      groups.set(cleanName(folder.name), [{
+  if (config.groupByLeafFolder) {
+    for (const leaf of findImageLeaves(config.sourceRoot)) {
+      const meaningfulParts = leaf.relativeParts
+        .filter((part) => !technicalFolderPattern.test(part));
+      // Portrait 第一層是人物／日期資料夾；沒有更深主題名稱的相簿不公開。
+      if (meaningfulParts.length < 2) continue;
+      const projectName = cleanName(meaningfulParts.at(-1));
+      if (groups.has(projectName)) {
+        throw new Error(`Duplicate leaf album name: ${projectName}`);
+      }
+      groups.set(projectName, [{
         name: "完成版",
-        sourcePath: folder.name,
-        files,
+        sourcePath: leaf.relativeParts.join("/"),
+        files: leaf.files,
       }]);
     }
   } else {
@@ -143,7 +140,12 @@ async function generateCollection(config) {
         const images = item.files.map((source, imageIndex) => {
           const filename = `${String(imageIndex + 1).padStart(3, "0")}.webp`;
           const src = `/${config.slug}/${slug}/${seriesSlug}/${filename}`;
-          tasks.push({ source, destination: path.join(seriesDirectory, filename) });
+          tasks.push({
+            source,
+            destination: path.join(seriesDirectory, filename),
+            maxEdge,
+            quality,
+          });
           imageCount += 1;
           return { src, sourceName: path.basename(source) };
         });
@@ -170,8 +172,9 @@ async function generateCollection(config) {
     slug: config.slug,
     name: config.name,
     label: config.label,
-    selectionPolicy: config.groupByTopLevelFolder
-      ? "One album per immediate source folder, including every nested image"
+    imagePolicy: { maxEdge, quality, format: "webp" },
+    selectionPolicy: config.groupByLeafFolder
+      ? "One album per deepest image folder, named after that leaf folder"
       : "All images from every deepest source folder",
     stats: {
       projectCount: projects.length,
@@ -182,7 +185,7 @@ async function generateCollection(config) {
     projects,
   };
 
-  console.log(`Optimizing ${imageCount} ${config.name} images with ${conversionConcurrency} workers...`);
+  console.log(`Optimizing ${imageCount} ${config.name} images at ${maxEdge}px / quality ${quality} with ${conversionConcurrency} workers...`);
   await runTasks(tasks);
   fs.mkdirSync(path.dirname(dataPath), { recursive: true });
   fs.writeFileSync(dataPath, `${JSON.stringify(catalog, null, 2)}\n`);
