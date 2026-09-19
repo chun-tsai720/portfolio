@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const publicRoot = path.join(projectRoot, "public");
-const mediaDirectories = ["rock", "motor", "portrait"];
+const mediaDirectories = ["rock", "portrait"];
 const concurrency = Number(process.env.UPLOAD_WORKERS || 8);
 
 if (!process.env.BLOB_READ_WRITE_TOKEN) {

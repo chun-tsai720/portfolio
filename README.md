@@ -26,7 +26,6 @@ npm run dev
 - `/works/mcp-server`
 - `/works/photography`
 - `/works/photography/rock`
-- `/works/photography/motor`
 - `/works/photography/portrait`
 - `/works/midjourney`
 - `/works/visuals`
@@ -64,13 +63,13 @@ ROCK_SOURCE="/path/to/ROCK" npm run generate:rock
 MAX_PER_SERIES=6 npm run generate:rock
 ```
 
-MOTOR 與 Portrait 也使用相同的「只取照片樹最底層」規則：
+Portrait 使用「只取照片樹最底層」規則，並以最底層資料夾命名相簿：
 
 ```bash
 npm run generate:photography
 ```
 
-預設來源分別是 `/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/MOTOR` 與 `/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait`，也可用 `MOTOR_SOURCE`、`PORTRAIT_SOURCE` 環境變數改寫。
+預設來源是 `/Users/KobeKEKE/Pictures/Pic/iPHONE PIC/Portrait/Portrait`，也可用 `PORTRAIT_SOURCE` 環境變數改寫。Portrait 網頁副本會以長邊 1600px、WebP 品質 78 產生，原始照片不會被修改。
 
 ## 從 Midjourney 整理資料夾重新產生網站素材
 
@@ -93,6 +92,6 @@ npm run generate:midjourney
 
 ## GitHub 與 Vercel 部署
 
-四個網站圖片目錄 `public/rock`、`public/motor`、`public/portrait`、`public/midjourney` 會和程式碼一起保存在 GitHub，並透過相對路徑由同一個 Vercel 部署提供。完整網站副本共 12,143 張、約 780 MB，採長邊 1200px、WebP 品質 70；原始照片仍只保留在來源資料夾，不會被產生器修改。
+網站圖片目錄 `public/rock`、`public/portrait`、`public/midjourney` 會和程式碼一起保存在 GitHub，並透過相對路徑由同一個 Vercel 部署提供。原始照片仍只保留在來源資料夾，不會被產生器修改。
 
-由於 Vercel Hobby 的 CLI 原始檔上傳限制為 100 MB，這個專案必須透過已連接的 GitHub `main` 分支自動部署，不使用 `vercel --prod` 直接上傳。每次重新產生圖片後，先確認四個目錄總容量仍保有足夠空間，再提交到 GitHub。
+由於 Vercel Hobby 的 CLI 原始檔上傳限制為 100 MB，這個專案必須透過已連接的 GitHub `main` 分支自動部署，不使用 `vercel --prod` 直接上傳。每次重新產生圖片後，先確認網站圖片目錄總容量仍保有足夠空間，再提交到 GitHub。

@@ -13,12 +13,6 @@ const technicalFolderPattern = /^(?:新增包含項目的檔案夾(?: \d+)?|未�
 
 const collections = [
   {
-    slug: "motor",
-    name: "MOTOR",
-    label: "機車攝影",
-    sourceRoot: process.env.MOTOR_SOURCE || "/Users/KobeKEKE/Pictures/Pic/Pic For iPhone/MOTOR",
-  },
-  {
     slug: "portrait",
     name: "PORTRAIT",
     label: "人像攝影",
@@ -100,7 +94,7 @@ async function generateCollection(config) {
     for (const leaf of findImageLeaves(config.sourceRoot)) {
       const meaningfulParts = leaf.relativeParts
         .filter((part) => !technicalFolderPattern.test(part));
-      // Portrait 第一層是人物／日期資料夾；沒有更深主題名稱的相簿不公開。
+      // 第一層是人物／日期資料夾；沒有更深主題名稱的相簿不公開。
       if (meaningfulParts.length < 2) continue;
       const projectName = cleanName(meaningfulParts.at(-1));
       if (groups.has(projectName)) {
